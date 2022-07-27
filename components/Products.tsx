@@ -118,7 +118,7 @@ const Products = ({ storeId }: { storeId: string }) => {
                 key={thing?.metaId}
                 title={thing?.metadata?.title}
                 media={thing?.metadata?.media}
-                descriprtion={thing?.metadata?.description}
+                description={thing?.metadata?.description}
               />
             ))}
           </div>
