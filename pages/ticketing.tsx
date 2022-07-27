@@ -1,5 +1,3 @@
-import Header from "../components/Header";
-import Form from "../components/Form";
 import MinterComp from "../components/MinterComp";
 import Products from "../components/Products";
 import {useState} from "react";

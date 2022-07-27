@@ -69,6 +69,7 @@ type Thing = {
   metadata: {
     title: string
     media: string
+    description: string
   }
   memo: string
   metaId: string
