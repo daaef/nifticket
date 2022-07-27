@@ -60,12 +60,7 @@ const Home = () => {
       <section className="w-full pb-20">
         <Container>
           <h3 className="text-xl font-light uppercase text-theme-blue">Latest entries</h3>
-          <div className="card-grid-4 mt-10">
-            <Card title="A nice test" description="Scary huh, fret not my fellow" media={HeaderImage} />
-            <Card title="A nice test" description="Scary huh, fret not my fellow" media={HeaderImage} />
-            <Card title="A nice test" description="Scary huh, fret not my fellow" media={HeaderImage} />
-            <Card title="A nice test" description="Scary huh, fret not my fellow" media={HeaderImage} />
-          </div>
+          <Products  storeId="niftiqet.mintspace2.testnet"/>
         </Container>
       </section>
     </>
