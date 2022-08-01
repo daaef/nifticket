@@ -6,32 +6,31 @@ import Link from 'next/link'
 import Products from "../components/Products";
 import Image from "next/image";
 import HeaderImage from "../assets/img/left-section.png"
-
-const links = [
-  {
-    href: 'https://testnet.mintbase.io/developer',
-    title: 'Get an API Key',
-    description:
-      'The key to authenticate your app. This is used for file uploads and fetching useful information.',
-  },
-  {
-    href: 'https://docs.mintbase.io/dev/getting-started',
-    title: 'Documentation',
-    description: 'Find in-depth information about Mintbase features and API.',
-  },
-  {
-    href: 'https://github.com/mintbase/examples',
-    title: 'Examples',
-    description: 'Discover and deploy boilerplate example Mintbase projects.',
-  },
-  {
-    href: 'https://testnet.mintbase.io/create',
-    title: 'Deploy a contract',
-    description: 'The first step for an on-chain adventure.',
-  },
-]
+import {gql} from "apollo-boost";
+import {useWallet} from "../services/providers/MintbaseWalletContext";
+import {useEffect, useState} from "react";
+import {useLazyQuery} from "@apollo/client";
+const FETCH_MINTER_STORE = gql`
+  query FetchMinterStores($minter: String!) {
+    store(where: { minters: { account: { _eq: $minter } } }) {
+      id
+      name
+    }
+  }
+`
 
 const Home = () => {
+  const {wallet, isConnected, details} = useWallet()
+  const [storeId, setStoreId] = useState<string>("")
+  const [fetchStores, {called, loading, data}] = useLazyQuery(
+      FETCH_MINTER_STORE,
+      {variables: {minter: details.accountId}}
+  )
+  useEffect(() => {
+    if (!isConnected) return
+
+    fetchStores()
+  }, [isConnected])
   return (
     <>
       <Head>
@@ -51,18 +50,14 @@ const Home = () => {
             <div className="main-text sb-bold">
               Get Any <span className="text-theme-blue">NFT</span> <br/> Tickets Online
             </div>
-            <button className="theme-btn">
-              <span className="text-black">Buy NFT Ticket</span>
-            </button>
+            <Link href="/ticketing" passHref>
+              <button className="btn theme-btn">
+                <span className="text-black">Buy NFT Ticket</span>
+              </button>
+            </Link>
           </div>
         </Container>
       </header>
-      <section className="w-full pb-20">
-        <Container>
-          <h3 className="text-xl font-light uppercase text-theme-blue">Latest entries</h3>
-          <Products  storeId="niftiqet.mintspace2.testnet"/>
-        </Container>
-      </section>
     </>
   )
 }
