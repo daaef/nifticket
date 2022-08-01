@@ -11,6 +11,7 @@ import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
 import MTypography from '@mui/material/Typography';
 import {formatNearAmount, parseNearAmount} from "near-api-js/lib/utils/format";
+import Image from "next/image";
 // @ts-ignore
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
 import { CssVarsProvider } from '@mui/joy/styles';
@@ -134,7 +135,8 @@ const Tickets = ({ thing, batchList, setBatchList, batch, priceModal }: { thing:
                     </IconButton>
 
                     <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
-                        <img
+                    <Image
+                            layout="fill"
                             src={token?.thing?.metadata?.media}
                             alt="Ticket Image"
                         />
